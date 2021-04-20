@@ -2,10 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 body {
-    background-color: #DDD894
+    background-color: #DDD894;
+    
 }
 .game-container {
     width: 500px;
@@ -52,6 +54,28 @@ body {
 }
 
 .point {
-    color: red;
+    left: 30px;
+    top: 25px;
+    font-family: 'Bungee Inline', cursive;
+    font-size: 30px;
+    font-weight: bold;
+    color: yellow;
+    position: absolute;
+    z-index: +2;
 }
+
+/* .game-start {
+    background-color: rgba(42, 42, 42, 0.822);
+    width: 100%;
+    height: 100%;    
+    display: flex;
+    align-items: center;
+    padding: 222px;
+    font-family: 'Bungee Inline', cursive;
+    font-size: 30px;
+    font-weight: bold;
+    color: yellow;
+    z-index: 99999
+
+} */
 

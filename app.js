@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const bird = document.querySelector('.bird')
     const gameContainer = document.querySelector('.game-container')
-    const ground = document.querySelector('.ground')
+    const pointClass = document.querySelector('.point')
     
-
+    let pointCount = 0
     let birdLeft = 220
     let birdBottom = 100
-    let gravity = 2
+    let gravity = 2.5
     let isGameOver = false
     let gap = 430
 
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateObstacle() {
         let obstacleLeft = 500
-        let randomHeight = Math.random() * 60
+        let randomHeight = Math.random() * 100
         let obstacleBottom = randomHeight 
 
         const obstacle = document.createElement('div')
@@ -78,13 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             if ( initialPipeCondition || initialTopPipeCondition || finalPipeCondition || finalTopPipeCondition|| birdBottom === 0) {
+                clearInterval(gameTimerId)
                 gameOver()
-                clearInterval(gameTimerId)     
+                
             }
         }
         let gameTimerId = setInterval(moveObstacle, 20)
         if (!isGameOver) setTimeout(generateObstacle, 3000)
         if (!isGameOver) setTimeout(point(), 2700)
+        if (isGameOver) hit()
+            
+    
 
         
         
@@ -94,26 +98,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function hit() {
         new Audio('audio/hit.ogg').play()
-
+        
             setTimeout(fall(), 30)
     }
     
     function fall() {
         new Audio('audio/die.ogg').play()
     }
-
+    
     function point(){
+        pointClass.innerHTML = 'Score: ' +  pointCount
         new Audio('audio/point.ogg').play()
+
+        pointCount++
     }
 
-
+    
     function gameOver() {
         clearInterval(gameTimerId)
         isGameOver = true
         document.removeEventListener('keyup', control)
         document.removeEventListener('touchend', jump)
-        hit()
         
-    }      
+        
+    }
+    
 
 })
