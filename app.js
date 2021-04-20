@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function jump() {
         if (birdBottom < 500) birdBottom += 50
         bird.style.bottom = birdBottom + 'px'
+
+        new Audio('audio/wing.ogg').play()
     }
     document.addEventListener('keyup', control)
     document.addEventListener('touchend', jump)
@@ -77,22 +79,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if ( initialPipeCondition || initialTopPipeCondition || finalPipeCondition || finalTopPipeCondition|| birdBottom === 0) {
                 gameOver()
-                clearInterval(gameTimerId)
+                clearInterval(gameTimerId)     
             }
         }
         let gameTimerId = setInterval(moveObstacle, 20)
         if (!isGameOver) setTimeout(generateObstacle, 3000)
-                   
+        if (!isGameOver) setTimeout(point(), 2700)
 
+        
+        
     }
     generateObstacle()
+
+
+    function hit() {
+        new Audio('audio/hit.ogg').play()
+
+            setTimeout(fall(), 30)
+    }
     
+    function fall() {
+        new Audio('audio/die.ogg').play()
+    }
+
+    function point(){
+        new Audio('audio/point.ogg').play()
+    }
 
 
     function gameOver() {
         clearInterval(gameTimerId)
         isGameOver = true
         document.removeEventListener('keyup', control)
+        document.removeEventListener('touchend', jump)
+        hit()
+        
     }      
 
 })
